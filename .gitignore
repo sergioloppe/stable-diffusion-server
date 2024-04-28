@@ -1,0 +1,5 @@
+stable-diffusion
+venv/*
+.idea
+__pycache__
+/venv/
