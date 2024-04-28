@@ -1,4 +1,3 @@
-import uuid as uuid_module
 from flask import request, send_file
 from src.main import app
 from src.services.inference_service import run_inference

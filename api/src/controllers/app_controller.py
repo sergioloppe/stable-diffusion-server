@@ -1,5 +1,4 @@
-import uuid as uuid_module
-from flask import request, request, send_file, jsonify, render_template, send_from_directory
+from flask import request, send_file, send_from_directory
 from src.main import app
 from src.services.inference_service import run_inference
 
@@ -17,3 +16,7 @@ def myapp():
 def serve(path):
     return send_from_directory(app.static_folder,'index.html')
 
+
+@app.route('/test')
+def test():
+    return "Hello, World!"

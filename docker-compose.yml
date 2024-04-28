@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: sd-server
+    ports:
+      - "8080:8080"
+    networks:
+      - myapp_network
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: sd-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - myapp_network
+
+networks:
+  myapp_network:
