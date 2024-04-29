@@ -1,13 +1,13 @@
 services:
-  api:
+  backend:
     build:
       context: .
-      dockerfile: Dockerfile.api
-    image: sd-server
-    ports:
-      - "8080:8080"
+      dockerfile: Dockerfile.backend
+    image: sd-backend
+    expose:
+       - "8080"
     networks:
-      - myapp_network
+      - sd-network
   frontend:
     build:
       context: .
@@ -16,7 +16,8 @@ services:
     ports:
       - "3000:80"
     networks:
-      - myapp_network
+      - sd-network
 
 networks:
-  myapp_network:
+  sd-network:
+      driver: bridge

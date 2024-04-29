@@ -12,11 +12,11 @@ def myapp():
     return send_file(img_data, mimetype='image/png')
 
 
-@app.route('/app', defaults={'path':''})
+@app.route('/api', defaults={'path':''})
 def serve(path):
     return send_from_directory(app.static_folder,'index.html')
 
 
-@app.route('/test')
+@app.route('/api/test')
 def test():
     return "Hello, World!"

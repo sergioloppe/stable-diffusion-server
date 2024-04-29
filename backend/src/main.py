@@ -3,6 +3,7 @@ import os
 import torch
 from flask import Flask
 from flask_cors import CORS
+from diffusers import StableDiffusionPipeline
 
 from config import app_config
 
@@ -23,12 +24,13 @@ app.debug = True
 # CORS(app)
 
 # Load the CompVis SD1.4 model
-pipe = None
-# pipe = StableDiffusionPipeline.from_pretrained(
-#         "CompVis/stable-diffusion-v1-4",
-#         use_auth_token=True
-# ).to(app.config["TORCH_DEVICE_NAME"].type)
-#
+pipe = StableDiffusionPipeline.from_pretrained(
+        "CompVis/stable-diffusion-v1-4",
+        use_auth_token=True
+).to(app.config["TORCH_DEVICE_NAME"].type)
+
 
 # Import the routes
+from src.controllers.app_controller import *
+from src.controllers.inference_controller import *
 
