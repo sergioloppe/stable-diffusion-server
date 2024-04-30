@@ -21,10 +21,12 @@ class Config(object):
             self.TORCH_DTYPE = torch.float32
             self.TORCH_AUTOCAST = "cpu"
 
+    def __str__(self):
+        attributes = vars(self)
+        return '\n'.join(f"{key}: {value}" for key, value in attributes.items())
 
 class ProductionConfig(Config):
     FLASK_CONFIG = 'production'
-
 
 class DevelopmentConfig(Config):
     FLASK_CONFIG = 'testing'

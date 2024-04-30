@@ -10,7 +10,7 @@ from config import app_config
 # Initialize the Flask application
 config_name = os.getenv('FLASK_CONFIG', 'development')
 
-config = app_config[config_name]
+config = app_config[config_name]()
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 app.config.from_object(config)
@@ -21,7 +21,7 @@ app.debug = True
 # Load the CompVis SD1.4 model
 pipe = StableDiffusionPipeline.from_pretrained(
         "CompVis/stable-diffusion-v1-4",
-        use_auth_token=True
+        use_auth_token=False
 ).to(app.config["TORCH_DEVICE_NAME"].type)
 
 
