@@ -5,11 +5,22 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
-    TESTING = False
-    TORCH_DEVICE_NAME = torch.device("mps")  # cuda, cpu, mps
-    TORCH_DTYPE = torch.float32
-    TORCH_AUTOCAST = "cpu"
+
+    def __init__(self):
+        self.HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
+        self.TESTING = False
+        self.set_device()
+
+    def set_device(self):
+        if torch.cuda.is_available():
+            self.TORCH_DEVICE_NAME = torch.device("cuda")
+            self.TORCH_AUTOCAST = "cuda"
+            self.TORCH_DTYPE = torch.float16
+        else:
+            self.TORCH_DEVICE_NAME = torch.device("mps")  # Default to "mps" if no CUDA
+            self.TORCH_DTYPE = torch.float32
+            self.TORCH_AUTOCAST = "cpu"
+
 
 class ProductionConfig(Config):
     FLASK_CONFIG = 'production'

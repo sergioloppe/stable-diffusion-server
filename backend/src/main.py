@@ -12,11 +12,6 @@ config_name = os.getenv('FLASK_CONFIG', 'development')
 
 config = app_config[config_name]
 
-if torch.cuda.is_available():
-    config["TORCH_DEVICE_NAME"] = torch.device("cuda")
-    config["TORCH_AUTOCAST"] = "cuda"
-    config["TORCH_DTYPE"] = torch.float16
-
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 app.config.from_object(config)
 app.debug = True
