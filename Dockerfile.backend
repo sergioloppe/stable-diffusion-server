@@ -1,6 +1,6 @@
 # Start from the NVIDIA CUDA base image for Ubuntu 20.04
 # docker build --rm -f Dockerfile.backend -t sd-backend --build-arg HF_TOKEN=${HF_TOKEN} .
-# docker run -p 8080:8080  sd-backend
+# docker run -p 8080:8080 -v ~/.cache/huggingface:/root/.cache/huggingface sd-backend
 FROM nvidia/cuda:12.4.1-base-ubuntu20.04
 
 RUN apt update
@@ -40,11 +40,11 @@ RUN python3 -m venv .venv
 ENV PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 ENV FLASK_CONFIG=development
 
 # Copy you huggingface token
-ARG HF_TOKEN
+ARG HF_TOKEN=no_token_provided
 RUN python3 -c "from huggingface_hub import HfFolder; HfFolder.save_token('${HF_TOKEN}')"
 
 EXPOSE 8080

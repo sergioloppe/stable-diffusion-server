@@ -3,9 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
+      args:
+        HF_TOKEN: ${HF_TOKEN:-no_token_provided}
     image: sd-backend
     expose:
        - "8080"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
     networks:
       - sd-network
   frontend:

@@ -17,7 +17,7 @@ class Config(object):
             self.TORCH_AUTOCAST = "cuda"
             self.TORCH_DTYPE = torch.float16
         else:
-            self.TORCH_DEVICE_NAME = torch.device("mps")  # Default to "mps" if no CUDA
+            self.TORCH_DEVICE_NAME = torch.device("mps")  # For mac users the default device is set to "mps" if you want to use cpu change it to "cpu"
             self.TORCH_DTYPE = torch.float32
             self.TORCH_AUTOCAST = "cpu"
 
