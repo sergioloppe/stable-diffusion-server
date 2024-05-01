@@ -1,6 +1,7 @@
 ## inference_service.py
 import io
 from torch import autocast, manual_seed
+
 from src.main import pipe, app
 
 

@@ -1,11 +1,9 @@
 import os
-
-import torch
 from flask import Flask
 from flask_cors import CORS
-from diffusers import StableDiffusionPipeline
 
 from config import app_config
+from src.utils.stable_diffusion import initialize_model
 
 # Initialize the Flask application
 config_name = os.getenv('FLASK_CONFIG', 'development')
@@ -18,13 +16,8 @@ app.debug = True
 
 # CORS(app)
 
-# Load the CompVis SD1.4 model
-device = app.config["TORCH_AUTOCAST"]
-print(f'Using device: {device}')
-pipe = StableDiffusionPipeline.from_pretrained(
-        "CompVis/stable-diffusion-v1-4",
-        use_auth_token=False
-).to(device)
+# Initialize the stable diffusion model HF_MODEL
+pipe = initialize_model(app.config)
 
 # Import the routes
 from src.controllers.app_controller import *

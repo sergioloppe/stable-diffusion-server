@@ -1,5 +1,8 @@
 import os
 import torch
+import platform, subprocess
+
+from src.utils.hardware import detected_apple_silicon
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -7,7 +10,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
 
     def __init__(self):
-        self.HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
+        self.HF_TOKEN = os.environ.get('HF_TOKEN', None)
+        self.HF_MODEL = os.environ.get('HF_MODEL', "CompVis/stable-diffusion-v1-4")
         self.TESTING = False
         self.set_device()
 
@@ -17,7 +21,7 @@ class Config(object):
             self.TORCH_AUTOCAST = "cuda"
             self.TORCH_DTYPE = torch.float16
         else:
-            self.TORCH_DEVICE_NAME = torch.device("mps")  # For mac users the default device is set to "mps" if you want to use cpu change it to "cpu"
+            self.TORCH_DEVICE_NAME = torch.device("mps" if detected_apple_silicon() else "cpu")
             self.TORCH_DTYPE = torch.float32
             self.TORCH_AUTOCAST = "cpu"
 
@@ -25,8 +29,10 @@ class Config(object):
         attributes = vars(self)
         return '\n'.join(f"{key}: {value}" for key, value in attributes.items())
 
+
 class ProductionConfig(Config):
     FLASK_CONFIG = 'production'
+
 
 class DevelopmentConfig(Config):
     FLASK_CONFIG = 'testing'
