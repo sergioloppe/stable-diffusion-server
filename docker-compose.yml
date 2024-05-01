@@ -12,6 +12,12 @@ services:
       - ~/.cache/huggingface:/root/.cache/huggingface
     networks:
       - sd-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: [gpu]
   frontend:
     build:
       context: .

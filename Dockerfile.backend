@@ -1,6 +1,6 @@
 # Start from the NVIDIA CUDA base image for Ubuntu 20.04
 # docker build --rm -f Dockerfile.backend -t sd-backend --build-arg HF_TOKEN=${HF_TOKEN} .
-# docker run -p 8080:8080 -v ~/.cache/huggingface:/root/.cache/huggingface sd-backend
+# docker run --gpus all -p 8080:8080 -v ~/.cache/huggingface:/root/.cache/huggingface sd-server
 FROM nvidia/cuda:12.4.1-base-ubuntu20.04
 
 RUN apt update
