@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.backend
       args:
         HF_TOKEN: ${HF_TOKEN:-no_token_provided}
-        HF_MODEL: CompVis/stable-diffusion-v1-4
+        HF_MODEL: ${HF_MODEL:-CompVis/stable-diffusion-v1-4}
     image: sd-backend
     expose:
        - "8080"
