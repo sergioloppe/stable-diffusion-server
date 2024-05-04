@@ -16,5 +16,6 @@ def initialize_model(app_config):
 
     return StableDiffusionPipeline.from_pretrained(
         stable_diffusion_model,
-        use_auth_token=use_hf_auth_token
+        use_auth_token=use_hf_auth_token,
+        safety_checker=None
     ).to(device)
