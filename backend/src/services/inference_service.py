@@ -19,6 +19,6 @@ def run_inference(prompt, negative_prompt=None, width=512, height=512, guidance_
         ).images[0]
 
     img_data = io.BytesIO()
-    image.save(img_data, "PNG")
+    image.save(img_data, "JPEG", quality=80)
     img_data.seek(0)
     return img_data
