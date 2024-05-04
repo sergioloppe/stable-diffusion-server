@@ -45,7 +45,7 @@ ENV FLASK_CONFIG=development
 
 # Copy you huggingface token
 ARG HF_TOKEN=no_token_provided
-ARG HF_MODEL=CompVis/stable-diffusion-v1-4
+ARG HF_MODEL=stabilityai/stable-diffusion-2-1
 RUN python3 -c "from huggingface_hub import HfFolder; HfFolder.save_token('${HF_TOKEN}')"
 
 EXPOSE 8080
