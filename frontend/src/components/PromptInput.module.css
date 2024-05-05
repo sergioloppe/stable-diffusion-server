@@ -5,11 +5,12 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    margin: 50px;
+    margin: 50px auto; /* Centering the container */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     background-color: #fff;
     width: 80%;
+    max-width: 600px; /* Ensuring the form doesn't become too wide */
 }
 
 form {
@@ -18,16 +19,15 @@ form {
     width: 100%;
 }
 
-label {
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+.label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Increased space between form elements */
 }
 
-input[type="text"] {
+.input, .inputGroup input {
+    width: 100%; /* Ensuring inputs take full width */
     padding: 10px;
-    margin-bottom: 20px;
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -35,11 +35,17 @@ input[type="text"] {
     transition: border-color 0.3s;
 }
 
-input[type="text"]:focus {
+.input:focus, .inputGroup input:focus {
     border-color: #007BFF;
 }
 
-button {
+.inputGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for width and height inputs */
+    gap: 20px; /* Space between grid items */
+}
+
+.button {
     padding: 10px 20px;
     background-color: #007BFF;
     color: white;
@@ -53,21 +59,25 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.button:hover {
     background-color: #0056b3;
 }
 
 img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     border-radius: 4px;
     margin-top: 20px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .container {
         width: 90%;
+        margin: 20px auto; /* Reduced margin and padding on smaller screens */
         padding: 10px;
+    }
+
+    .inputGroup {
+        grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
     }
 }
